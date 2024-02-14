@@ -64,6 +64,11 @@ namespace AcervoFilmes.Repositories
                 throw new Exception($"Não há nenhum filme com o título {tituloFilme} em nossa base de dados!");
             }
 
+            if (avaliacao.Nota < 0 || avaliacao.Nota > 5)
+            {
+                throw new Exception("A nota deve estar entre 1 e 5.");
+            }
+
             avaliacao.FilmeTitulo = tituloFilme.ToUpper();
 
             await _dbContext.avaliacoes.AddAsync(avaliacao);
@@ -75,10 +80,14 @@ namespace AcervoFilmes.Repositories
         {
             AvaliacaoModel avaliacaoId = await BuscarAvaliacaoId(id);
 
-
             if (avaliacaoId == null)
             {
                 throw new Exception($"A avaliação para o {id} não foi localizada!");
+            }
+
+            if (avaliacao.Nota < 0 || avaliacao.Nota > 5)
+            {
+                throw new Exception("A nota deve estar entre 1 e 5.");
             }
 
             avaliacaoId.Nota = avaliacao.Nota;
