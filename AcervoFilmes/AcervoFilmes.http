@@ -1,0 +1,6 @@
+@AcervoFilmes_HostAddress = http://localhost:5255
+
+GET {{AcervoFilmes_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
